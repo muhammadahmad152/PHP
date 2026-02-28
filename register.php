@@ -8,11 +8,11 @@
   </head>
   <body>
 
-    <h1 class="text-center mt-3">Rehistration form</h1>
+    <h1 class="text-center mt-3">Registration form</h1>
 
     <div class="container">
         <div class="row">
-            <div class="col-8 mx-auto">
+            <div class="col-8 mx-auto"> 
                 <form action="code.php" method="post">
                     <input type="text" placeholder="Enter your name" class="form-content mt-3" name="name">
                     <input type="text" placeholder="Enter your email" class="form-content mt-3" name="email">
