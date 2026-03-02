@@ -25,4 +25,17 @@
         </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+    <!-- CREATE DATABASE formhandling;
+        USE formhandling;
+        
+        CREATE TABLE register (
+        id INT(11) NOT NULL AUTO_INCREMENT,
+        Name VARCHAR(100) NOT NULL,
+        Email VARCHAR(100) NOT NULL UNIQUE,
+        Password VARCHAR(255) NOT NULL,
+        Message TEXT NOT NULL,
+        PRIMARY KEY (id)
+    );
+    -->
   </body>
