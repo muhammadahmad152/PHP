@@ -1,24 +1,21 @@
 <?php
-include 'connection.php';
+include 'connection.php'; // Ensure $conn exists here
 
 if(isset($_POST['register'])){
+
     $name = $_POST['name'];
     $email = $_POST['email'];
-    $password = $_POST['password'];
-    $address = $_POST['address'];
-    // echo $name .'<br>' .$email .'<br>' .$password .'<br>' .$address; 
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $message = $_POST['message'];
 
-    $insert = mysqli_query($econ, "INSERT into register(Name, Email, Password, Address)VALUES
-    ('$name', '$email', 'password', 'address')");
+    $stmt = mysqli_prepare($conn, "INSERT INTO register (Name, Email, Password, Message) VALUES (?, ?, ?, ?)");
+    mysqli_stmt_bind_param($stmt, "ssss", $name, $email, $password, $message);
 
-    if($insert){
-        // echo "<script> 
-        // alert('Data inserted successfully')
-        // location.assign('register.php')
-        // </script>";
-
-        herder('location: register.php');
+    if(mysqli_stmt_execute($stmt)){
+        header('Location: register.php'); // Redirect on success
+        exit();
+    } else {
+        echo "Error: " . mysqli_error($conn);
     }
 }
-
 ?>

@@ -17,7 +17,7 @@
                     <input type="text" placeholder="Enter your name" class="form-content mt-3" name="name">
                     <input type="text" placeholder="Enter your email" class="form-content mt-3" name="email">
                     <input type="text" placeholder="Enter your password" class="form-content mt-3" name="password">
-                    <input type="text" placeholder="Enter your address" class="form-content mt-3" name="address">
+                    <input type="text" placeholder="Enter your message" class="form-content mt-3" name="message">
 
                     <button class="btn btn-dark mt-3" name="register">Register</button>
                 </form>
@@ -26,4 +26,3 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
   </body>
-</html>
