@@ -34,10 +34,10 @@ if(isset($_POST['register'])){
 //     mysqli_stmt_bind_param($stmt, "ssss", $name, $email, $password, $message);
 
 //     if(mysqli_stmt_execute($stmt)){
-    //         header('Location: register.php');
-    //         exit();
-    //     } else {
-        //         echo "Error: " . mysqli_error($conn);
-        //     }
-        // }
-    ?>
+//         header('Location: register.php');
+//         exit();
+//     } else {
+//         echo "Error: " . mysqli_error($conn);
+//     }
+// }
+?>
