@@ -1,0 +1,22 @@
+<!-- <!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>File Uploading</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  </head>
+  <body>
+
+  <h3 class="text-center mt-3">File Uploading</h3>
+  <div class="container">
+    <div class="row">
+        <div class="col-8 mx-auto">
+
+        <form action="code.php" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" class="form-control mt-3">
+            <button type="submit" class="btn btn-info mt-3" name="upload-file">Upload file</button>
+        </form>
+        </div>
+    </div>
+  </div> -->
