@@ -1,16 +1,10 @@
 <?php
 
+ $con =  mysqli_connect('localhost', 'root', '', 'ai_202505b1'); //4 parameters
 
-$conn = mysqli_connect("localhost", "root", "", "formhandling");
+//  if($con){
+//     echo 'db connected'; 
 
-if(!$conn){
-    die("Connection Failed: " . mysqli_connect_error());
-}
+//  }
 
-
-// $conn = mysqli_connect("localhost", "root", "", "formhandling");
-
-// if(!$conn){
-//     die("Connection Failed: " . mysqli_connect_error());
-// }
-?>  
+?>
