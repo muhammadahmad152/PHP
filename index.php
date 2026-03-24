@@ -1,72 +1,135 @@
-<?php
-// Function with parameter 
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  </head>
+  <body>
 
-// function add($a, $b){
-//     echo $a * $b . '<br>';
-//     return $a * $b;
-// }
+        <div class="container">
+            <div class="row">
+                <div class="col-8 mx-auto">
+                    <h3 class='text-center mt-3'>User's data</h3>
+                    <table class="table table-bordered table-hover table-striped">
 
-// $result = add(20, 70);
-// $c = add(10, 60);
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Password</th>
+                            <th>Adress</th>
+                            <th>Role</th>
+                            <th colspan='2' class='text-center'>Action</th>
 
-// echo $result;
-// echo $c;
+                        </tr>
 
-// if and else 
+                        <?php
+                        include '../connection.php';
 
-// $age = 18;
-// $nationality = 'pakistan';
+                        $query = mysqli_query($con , "SELECT * from register");
+                        // echo $query; 
 
-// if ($age >= 18 && $nationality == 'pakistan') {
-//     echo 'You are eligible for vote';
-// } elseif ($age < 18 && $nationality == 'pakistan') {
-//     echo 'You are not eligible for vote';
-// } else {
-//     echo 'Nationality does not match';
-// }
+                        foreach($query as $value){
+                            ?>
+                            <tr>
+                                <td><?php echo $value['id'];?></td>
+                                <td><?php echo $value['Name'];?></td>
+                                <td><?php echo $value['Email'];?></td>
+                                <td><?php echo $value['Password'];?></td>
+                                <td><?php echo $value['Address'];?></td>
+                                <td><?php echo $value['role'];?></td>
+                                <td><!-- Button trigger modal -->
+<button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#edit<?php echo $value['id'];?>">
+  Edit
+</button>
+</td>
 
-    // Nested if 
-    // $age = 18;
-    // $nationality = "pakistan";
+  <!-- Button trigger modal -->
+<td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete<?php echo $value['id'];?>">
+  delete
+</button>
+</td>
 
-    // if ($nationality == "pakistan") {
-
-    // if ($age >= 40) {
+    <!-- update modal  start-->
+     <!-- Modal -->
+<div class="modal fade" id="edit<?php echo $value['id'];?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
         
-    //     echo "You are eligible to vote.";
-    // } else {
+          <form action="code.php" method="post">
+            
+             <input type="hidden" placeholder="Enter your name" class="form-control mt-3" name="id" value='<?php echo $value['id'];?>'>
 
-    //     echo "You are not eligible to vote. Age must be 18 or above.";
-    // }
+                    <input type="text" placeholder="Enter your name" class="form-control mt-3" name="name" value='<?php echo $value['Name'];?>'>
 
-    // } else {
+                    <input type="email" placeholder="Enter your email" class="form-control mt-3" name="email"  value='<?php echo $value['Email'];?>'>
 
-    // echo "Only Pakistani citizens can vote.";
-    // }
+                    <input type="text" placeholder="Enter your password" class="form-control mt-3" name="pass"  value='<?php echo $value['Password'];?>'>
 
-    #include <stdio.h>
+                    <input type="text" placeholder="Enter your address" class="form-control mt-3" name="address"  value='<?php echo $value['Address'];?>'>
 
-    // $vowel = 'a';
-    // switch($vowel) {
-    //     case 'a':
-    //     case 'e':
-    //     case 'i':
-    //     case 'o':
-    //     case 'u':
-    //     case 'A':
-    //     case 'E':
-    //     case 'I':
-    //     case 'O':
-    //     case 'U':
-    //         echo ("It is a vowel.");
-    //         break;
+                    <input type="text" placeholder="Enter your role" class="form-control mt-3" name="role" value='<?php echo $value['role'];?>'>
 
-    //     default:
-    //         printf("It is a consonant.");
-    // }
+    
+            
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" name='update'>Update</button>
 
-    // return 0;
-        
+            </form>
 
-?>
+      </div>
+    </div>
+  </div>
+</div>
+    <!-- update modal  end-->
 
+    <!-- delete modal start -->
+     <!-- Modal -->
+<div class="modal fade" id="delete<?php echo $value['id'];?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      
+        Do you really want to delete this data?
+        <form action="code.php" method='post'>
+          <input type="hidden" class='form-control' value='<?php echo $value['id'] ?>' name='id'>
+      
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" name='delete' class="btn btn-danger">Delete</button>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>
+    <!-- delete modal end -->
+
+                            </tr>
+                            
+                            <?php
+                        }
+                        ?>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  </body>
+</html>
