@@ -1,68 +1,120 @@
-
-CREATE DATABASE LibraryDB;
+CREATE DATABASE hh;
 GO
 
-USE LibraryDB;
+USE hh;
 GO
 
-
-CREATE TABLE Authors (
-    id INT IDENTITY(1,1) PRIMARY KEY,
-    author_name VARCHAR(100) NOT NULL,
-    email VARCHAR(100),
-    phone VARCHAR(20),
-    country VARCHAR(100)
+-- Employee Table
+CREATE TABLE employee56 (
+    empid INT IDENTITY(1,1) PRIMARY KEY,
+    empname VARCHAR(30),
+    salary DECIMAL(10,2),
+    department VARCHAR(30),
+    joiningdate DATETIME DEFAULT GETDATE()
 );
 
-CREATE TABLE Books (
-    id INT IDENTITY(1,1) PRIMARY KEY,
-    author_id INT NOT NULL,
-    book_title VARCHAR(150) NOT NULL,
-    category VARCHAR(100),
-    price DECIMAL(10,2),
-    publish_year INT,
+DROP table employee56
 
-    CONSTRAINT FK_Books_Authors
-    FOREIGN KEY (author_id)
-    REFERENCES Authors(id)
+-- Employee Log Table
+CREATE TABLE empployeeelog (
+    logid INT IDENTITY(1,1) PRIMARY KEY,
+    empid INT,
+    empname VARCHAR(30),
+    actiondate DATETIME DEFAULT GETDATE()
 );
 
-
-INSERT INTO Authors (author_name, email, phone, country)
-VALUES
-('J.K. Rowling','jk@gmail.com','03001234567','United Kingdom'),
-('William Shakespeare','william@gmail.com','03009876543','England'),
-('Paulo Coelho','paulo@gmail.com','03112223344','Brazil'),
-('Dan Brown','dan@gmail.com','03223334444','USA');
+ALTER TABLE empployeeelog
+ADD action VARCHAR(50);
 
 
-INSERT INTO Books (author_id, book_title, category, price, publish_year)
-VALUES
-(1,'Harry Potter and the Philosopher''s Stone','Fantasy',2500,1997),
-(1,'Harry Potter and the Chamber of Secrets','Fantasy',2800,1998),
-(2,'Hamlet','Drama',1800,1603),
-(3,'The Alchemist','Novel',2200,1988),
-(4,'The Da Vinci Code','Mystery',3000,2003);
-
-
-CREATE VIEW vw_BooksAuthors
+-- Trigger
+CREATE TRIGGER trg_employee56_insert
+ON employee56
+AFTER INSERT
 AS
-SELECT
-    b.id,
-    b.book_title,
-    a.author_name,
-    b.category,
-    b.price,
-    b.publish_year
-FROM Books b
-INNER JOIN Authors a
-ON b.author_id = a.id;
+BEGIN
+    SET NOCOUNT ON;
+
+    INSERT INTO empployeeelog (empid, empname, actiondate)
+    SELECT empid, empname, GETDATE()
+    FROM inserted;
+END;
 GO
 
+CREATE TRIGGER trg_employee56_insert
+ON employee56
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON;
 
-SELECT * FROM Authors;
+    INSERT INTO empployeeelog (empid, empname, action, actiondate)
+    SELECT empid, empname, 'Employee Inserted', GETDATE()
+    FROM inserted;
+END;
+
+CREATE TRIGGER trg_employee56_insert
+ON employee56
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Insert a log record into the audit table for every new employee added
+    INSERT INTO empployeeelog (empid, actiondate)
+    SELECT empid, 'Employee Inserted'
+    FROM INSERTED;
+END;
+
+ALTER TRIGGER trg_employee56_insert
+ON employee56
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    INSERT INTO empployeeelog (empid, actiondate)
+    SELECT empid, GETDATE()
+    FROM INSERTED;
+END;
+
+ALTER TRIGGER trg_employee56_insert
+ON employee56
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    INSERT INTO empployeeelog (empid, actiondate)
+    SELECT empid, GETDATE()
+    FROM inserted;
+END;
+
+INSERT INTO employee56 (empname, salary, department)
+VALUES ('talha', 5500.25, 'HR');
 
 
-SELECT * FROM Books;
+INSERT INTO empployeeelog (empid, action, actiondate)
+SELECT empid, 'Employee Inserted', GETDATE()
+FROM INSERTED;
 
-SELECT * FROM vw_BooksAuthors;
+
+
+
+INSERT INTO employee56 (empname, salary, department, joining_date)
+VALUES ('talha', 5500.25, 'HR')
+
+-- Check Results
+SELECT * FROM employee56;
+SELECT * FROM empployeeelog;
+
+DROP TRIGGER trg_employee56_insert;
+
+sp_helptext 'trg_employee56_insert';
+
+SELECT OBJECT_DEFINITION(OBJECT_ID('trg_employee56_insert'));
+
+SELECT * 
+FROM employee56;
+
+sp_helptext 'trg_employee56_insert';
